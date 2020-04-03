@@ -1,0 +1,64 @@
+@import '../../root/variables';
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border: 1px solid black;
+  height: $header_height;
+  width: 100%;
+
+  .hamburger {
+    cursor: pointer;
+
+    @include for-tablet-landscape-up {
+      display: none;
+    }
+  }
+
+  nav {
+    position: absolute;
+    top: $header_height;
+    left: 0;
+    width: 100%;
+    height: calc(100% - #{$header_height});
+    padding-top: $header_height;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;;
+    text-align: right;
+    transition: transform 0.6s;
+
+    @include for-tablet-landscape-up {
+      position: initial;
+      padding-top: initial;
+      display: initial;
+      background-color: transparent;
+    }
+
+    &.closed {
+      transform: translate(100%);
+    }
+
+    .nav-link {
+      margin: $header_nav_link_margin 0;
+
+      @include for-tablet-landscape-up {
+        margin: 0 $header_nav_link_margin
+      }
+    }
+
+
+  }
+
+  & > * {
+    margin: auto 30px;
+  }
+
+  * {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}

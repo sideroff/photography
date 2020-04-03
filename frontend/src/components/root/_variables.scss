@@ -1,10 +1,8 @@
-# photography
-A customisable photography website using express &amp; react
+$header_height: 64px;
+$header_nav_link_margin: 32px;
 
-
-media query breakpoints:
-  @media (max-width: 599px) { 
-    @content; 
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
 }
 @mixin for-tablet-portrait-up {
   @media (min-width: 600px) { @content; }
@@ -18,5 +16,3 @@ media query breakpoints:
 @mixin for-big-desktop-up {
   @media (min-width: 1800px) { @content; }
 }
-
-fe start = 03.04 14.30
