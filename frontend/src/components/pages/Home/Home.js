@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
-import requestDispatcher from 'services/requestDispatcher'
+
+import './Home.scss'
 
 export default function Home() {
-
-  useEffect(() => {
-    console.log('calling request')
-    requestDispatcher.requestToServer('GET', '/users/1').then(response => {
-      console.log('received response')
-    }).catch(error => { })
-  }, [])
-
   return (
-    <div>home page</div>
+    <React.Fragment>
+      <div className="parallax" style={{ backgroundImage: "url('/hero.jpg')" }}></div>
+      <div className="add-scroling">home page</div>
+    </React.Fragment>
   )
 }

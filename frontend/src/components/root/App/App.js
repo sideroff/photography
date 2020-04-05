@@ -1,11 +1,16 @@
 import React from 'react'
-import { Router } from 'components/root'
+import { Router } from '../'
+
+import StoreContextProvider from '../../../store'
 
 
 import './App.scss'
 
 export default function App() {
   return (
-    <Router />
+    <StoreContextProvider>
+      <Router />
+    </StoreContextProvider>
+
   )
 }

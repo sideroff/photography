@@ -9,11 +9,20 @@ body,
 #root {
   width: 100% !important;
   height: 100% !important;
+}
+
+
+html,
+body {
   overflow: hidden;
 }
 
+#root {
+  overflow: auto;
+}
+
 .page {
-  height: calc(100% - #{$header_height});
+  min-height: 100%;
 }
 
 body {
@@ -38,4 +47,8 @@ code {
     border: 1px solid red;
 
   }
+}
+
+.add-scroling {
+  height: 10000px;
 }

@@ -1,20 +1,18 @@
-import React from 'react'
-import {
-  BrowserRouter,
-  Switch,
-  Route
-} from 'react-router-dom'
+import React, { useContext } from 'react'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
-import {
-  Header
-} from 'components/organisms'
+import { ProtectedRoute } from '../../molecules'
+import { Header } from '../../organisms'
+import { Contacts, Home, NotFound, } from '../../pages'
 
-import {
-  Contacts,
-  Home
-} from 'components/pages'
+import { StoreContext } from '../../../store'
 
-export default function App() {
+export default function Router() {
+
+  const test = useContext(StoreContext)
+
+  console.log('test ', test)
+
   return (
     <BrowserRouter basename='/'>
       <Header />
@@ -22,6 +20,8 @@ export default function App() {
         <div className='page'>
           <Route exact path='/' component={Home} />
           <Route path='/contact' component={Contacts} />
+          <ProtectedRoute path='/upload' component={Contacts} isAllowed={true} />
+          <Route path='*' component={NotFound} />
         </div>
       </Switch>
     </BrowserRouter>
