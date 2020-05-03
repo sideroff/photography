@@ -33,21 +33,24 @@ export default function Home() {
           Photography is the story I fail to put into words
         </div>
       </div>
-      <div className="categories">
-        {isLoading && <Loading />}
+      {isLoading && <Loading />}
 
-        {!isLoading &&
-          categories &&
-          categories.map((category) => (
-            <NavLink
-              to={`/category/${category.title.toLowerCase()}`}
-              className="category card"
-              style={{ backgroundImage: `url('${category.primaryImage}')` }}
-            >
-              <div className="title">{category.title}</div>
-            </NavLink>
-          ))}
-      </div>
+      {!isLoading && categories && (
+        <div className="categories-container">
+          <h2>Galleries</h2>
+          <div className="categories">
+            {categories.map((category) => (
+              <NavLink
+                to={`/category/${category.title.toLowerCase()}`}
+                className="category card"
+                style={{ backgroundImage: `url('${category.primaryImage}')` }}
+              >
+                <div className="title">{category.title}</div>
+              </NavLink>
+            ))}
+          </div>
+        </div>
+      )}
     </>
   );
 }
