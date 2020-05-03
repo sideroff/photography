@@ -37,12 +37,12 @@ code {
     monospace;
 }
 
+.card {
+  box-shadow: 0 8px 6px 0 rgba(0, 0, 0, 0.3);
+  transition: 0.6s;
+  border-radius: 5px;
+}
 
-.highlight {
-  height: 100%;
-
-  & * {
-    border: 1px solid red;
-
-  }
+.card:hover {
+  box-shadow: 0 8px 14px 0 rgba(0, 0, 0, 0.5);
 }

@@ -1,3 +1,5 @@
+@import '../../root/variables';
+
 .hero-image {
   height: 52%;
 
@@ -7,14 +9,86 @@
 }
 
 .parallax {
-  flex: 0 1 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex: 0 0 50%;
 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+
+  div {
+    color: white;
+  }
+
+  .title {
+    font-size: 1.2rem;
+    font-weight: 700;
+
+    @include for-tablet-portrait-up {
+      font-size: 1.6rem;
+    }
+
+    @include for-tablet-landscape-up {
+      font-size: 2rem;
+    }
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+    font-weight: 500;
+
+    @include for-tablet-portrait-up {
+      font-size: 0.975rem;
+    }
+
+    @include for-tablet-landscape-up {
+      font-size: 1.2rem;
+    }
+  }
 }
 
-.categories-container {
+.categories {
   flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  justify-content: space-around;
+
+  .category {
+    margin: 34px;
+    width: 150px;
+    height: 150px;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .title {
+      color: white;
+      font-weight: 700;
+      font-size: 1.8rem;
+    }
+
+    @include for-tablet-portrait-up {
+      margin: 36px;
+      width: 215px;
+      height: 215px;
+    }
+
+    @include for-tablet-landscape-up {
+      width: 220px;
+      height: 220px;
+    }
+
+    @include for-desktop-up {
+      width: 320px;
+      height: 320px;
+    }
+  }
 }
