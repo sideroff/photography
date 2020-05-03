@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 import { AuthContext, roles } from "../../../store/contexts/auth";
 
 import "./Header.scss";
@@ -51,15 +51,22 @@ export default function Header() {
         <div className="title">Damyan Georgiev photography</div>
       </NavLink>
 
-      <div className="nav-menu">
+      <div>
+        <nav className={isNavOpen ? "" : " closed"}>
+          <div className="nav-links-header">
+            <FaTimes
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              className="hamburger"
+            />
+          </div>
+
+          {MENU_LINKS.map(mapToNavLink)}
+        </nav>
+
         <FaBars
           onClick={() => setIsNavOpen(!isNavOpen)}
           className="hamburger"
         />
-
-        <nav className={isNavOpen ? "" : " closed"}>
-          {MENU_LINKS.map(mapToNavLink)}
-        </nav>
       </div>
     </header>
   );

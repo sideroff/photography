@@ -7,10 +7,14 @@
 }
 
 .parallax {
-  height: 500px; 
+  flex: 0 1 500px;
 
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.categories-container {
+  flex: 1 1 auto;
 }

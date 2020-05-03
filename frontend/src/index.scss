@@ -1,9 +1,5 @@
 @import './components/root/variables';
 
-* {
-  box-sizing: border-box;
-}
-
 html,
 body,
 #root {
@@ -22,6 +18,8 @@ body {
 }
 
 .page {
+  display: flex;
+  flex-flow: column;
   height: calc(100% - #{$header_height});
 }
 
@@ -47,8 +45,4 @@ code {
     border: 1px solid red;
 
   }
-}
-
-.add-scroling {
-  height: 10000px;
 }
