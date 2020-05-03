@@ -67,7 +67,7 @@ function addRouting(app) {
     });
   });
 
-  logger.log("\tattaching  GET * to router\n");
+  logger.log("\tattaching GET * to router\n");
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../public/index.html"));
   });

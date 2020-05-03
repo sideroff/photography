@@ -1,9 +1,9 @@
+const auth = require("./auth");
 const category = require("./category");
 const picture = require("./picture");
-const user = require("./user");
 
 module.exports = {
+  auth,
   category,
   picture,
-  user,
 };

@@ -15,10 +15,6 @@ module.exports = {
       //mb * kb * b = total allowed bytes
       fileUploadSize: 3 * 1024 * 1024,
     },
-    roles: {
-      admin: 3,
-      guest: 0,
-    },
   },
   dababase: {
     connectionString: `mongodb://${
@@ -26,5 +22,9 @@ module.exports = {
     }:${
       process.env.DB_PASS || credentials.db.password
     }@ds129179.mlab.com:29179/photography`,
+  },
+  roles: {
+    admin: 3,
+    guest: 0,
   },
 };

@@ -1,11 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const Category = mongoose.model('Category',
-  {
-    name: String,
-    description: String,
-    primaryImage: String,
-  }
-)
+const Category = mongoose.model("Category", {
+  title: String,
+  description: String,
+  primaryImage: String,
+});
 
-module.exports = Category
+module.exports = Category;

@@ -173,12 +173,12 @@ const login = (req, res) => {
 module.exports = {
   post: [
     {
-      route: "/api/user/register",
+      route: "/api/auth/register",
       handler: register,
       requiredRole: 3,
     },
     {
-      route: "/api/user/login",
+      route: "/api/auth/login",
       handler: login,
       requiredRole: 0,
     },
