@@ -1,22 +1,30 @@
-const path = require('path')
+const path = require("path");
 
-const credentials = require('./credentials')
+const credentials = require("./credentials");
 
-const environment = process.env.NODE_ENV || 'development'
+const environment = process.env.NODE_ENV || "development";
 
 module.exports = {
-  isDev: environment == 'development',
+  isDev: environment == "development",
   environment,
   webServer: {
     port: process.env.PORT || 3001,
     host: process.env.HOST,
-    publicFolderPath: path.join(__dirname, '../public'),
+    publicFolderPath: path.join(__dirname, "../public"),
     limits: {
-                    //mb  kb     b
-      fileUploadSize: 3 * 1024 * 1024
-    }
+      //mb * kb * b = total allowed bytes
+      fileUploadSize: 3 * 1024 * 1024,
+    },
+    roles: {
+      admin: 3,
+      guest: 0,
+    },
   },
   dababase: {
-    connectionString: `mongodb://${credentials.db.user}:${credentials.db.password}@ds129179.mlab.com:29179/photography`
-  }
-}
+    connectionString: `mongodb://${
+      process.env.DB_USER || credentials.db.user
+    }:${
+      process.env.DB_PASS || credentials.db.password
+    }@ds129179.mlab.com:29179/photography`,
+  },
+};

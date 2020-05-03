@@ -1,21 +1,25 @@
 class Logger {
   constructor() {
-    this.signature = process.pid + ':\t'
+    this.signature = process.pid + ":\t";
   }
 
   log() {
-    console.log.apply(console, [this.signature, ...arguments])
+    console.log.apply(console, [this.signature, ...arguments]);
+  }
+
+  error() {
+    console.error.apply(console, [this.signature, ...arguments]);
   }
 }
 
-let instance
+let instance;
 
 function getInstance() {
   if (!instance) {
-    instance = new Logger()
+    instance = new Logger();
   }
 
-  return instance
+  return instance;
 }
 
-module.exports = getInstance()
+module.exports = getInstance();

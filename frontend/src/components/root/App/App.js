@@ -1,16 +1,14 @@
-import React from 'react'
-import { Router } from '../'
+import React from "react";
+import Router from "../Router/Router";
 
-import StoreContextProvider from '../../../store'
+import { AuthProvider } from "../../../store/contexts/auth";
 
-
-import './App.scss'
+import "./App.scss";
 
 export default function App() {
   return (
-    <StoreContextProvider>
+    <AuthProvider>
       <Router />
-    </StoreContextProvider>
-
-  )
+    </AuthProvider>
+  );
 }

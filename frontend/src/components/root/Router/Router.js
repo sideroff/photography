@@ -1,29 +1,32 @@
-import React, { useContext } from 'react'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import React, { useContext } from "react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { ProtectedRoute } from '../../molecules'
-import { Header } from '../../organisms'
-import { Contacts, Home, NotFound, } from '../../pages'
-
-import { StoreContext } from '../../../store'
+import { ProtectedRoute } from "../../molecules";
+import { Header } from "../../organisms";
+import { Contacts, Home, Upload, Login, NotFound } from "../../pages";
+import { AuthContext } from "../../../store/contexts/auth";
 
 export default function Router() {
+  const { state: authState } = useContext(AuthContext);
 
-  const test = useContext(StoreContext)
-
-  console.log('test ', test)
-
+  console.log("authState", authState);
+  const isAuthenticated = authState.isAuthenticated; //store && store.auth && store.auth.isAuthenticated;
   return (
-    <BrowserRouter basename='/'>
+    <BrowserRouter basename="/">
       <Header />
-      <Switch>
-        <div className='page'>
-          <Route exact path='/' component={Home} />
-          <Route path='/contact' component={Contacts} />
-          <ProtectedRoute path='/upload' component={Contacts} isAllowed={true} />
-          <Route path='*' component={NotFound} />
-        </div>
-      </Switch>
+      <div className="page">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/contact" component={Contacts} />
+          <Route path="/login" component={Login} />
+          <ProtectedRoute
+            path="/upload"
+            component={Upload}
+            isAllowed={isAuthenticated}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
     </BrowserRouter>
-  )
+  );
 }
