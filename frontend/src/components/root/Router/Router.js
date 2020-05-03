@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import { ProtectedRoute } from "../../molecules";
 import { Header } from "../../organisms";
-import { Contacts, Home, Upload, Login, NotFound } from "../../pages";
+import { About, Contacts, Home, Upload, Login, NotFound } from "../../pages";
 import { AuthContext } from "../../../store/contexts/auth";
 
 export default function Router() {
@@ -18,6 +18,7 @@ export default function Router() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/contact" component={Contacts} />
+          <Route path="/about" component={About} />
           <Route path="/login" component={Login} />
           <ProtectedRoute
             path="/upload"
