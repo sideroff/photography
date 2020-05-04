@@ -1,10 +1,10 @@
 @import '../../root/variables';
 
 
-.about-me {
+.contact {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 1rem;
 
@@ -15,6 +15,7 @@
       width: 50%;
     }
   }
+
 
   .picture {
     width: auto;
