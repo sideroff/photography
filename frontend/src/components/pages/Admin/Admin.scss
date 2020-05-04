@@ -1,1 +1,9 @@
 @import '../../root/variables';
+
+.admin {
+  padding: 1rem;
+
+  &>* {
+    padding-bottom: 3rem;
+  }
+}

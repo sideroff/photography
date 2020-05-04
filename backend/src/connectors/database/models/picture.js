@@ -1,11 +1,9 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const Picture = mongoose.model('Picture',
-  {
-    url: String,
-    name: String,
-    description: String,
-  }
-)
+const Picture = mongoose.model("Picture", {
+  path: String,
+  name: String,
+  description: String,
+});
 
-module.exports = Picture
+module.exports = Picture;

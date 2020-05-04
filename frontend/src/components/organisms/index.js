@@ -1,5 +1,5 @@
-import Header from './Header/Header'
+import CreateCategory from "./CreateCategory/CreateCategory";
+import Header from "./Header/Header";
+import UploadPicture from "./UploadPicture/UploadPicture";
 
-export {
-  Header
-}
+export { CreateCategory, Header, UploadPicture };
