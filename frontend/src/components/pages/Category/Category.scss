@@ -1,0 +1,11 @@
+@import "~react-image-gallery/styles/scss/image-gallery.scss";
+
+@import '../../root/variables';
+
+.category {
+  padding: 1rem;
+
+  .image-gallery-slide img {
+    height: 350px;
+  }
+}

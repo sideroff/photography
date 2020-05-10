@@ -4,11 +4,11 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ProtectedRoute } from "../../molecules";
 import { Header } from "../../organisms";
 import {
-  Admin,
   About,
+  Admin,
+  Category,
   Contact,
   Home,
-  Upload,
   Login,
   NotFound,
 } from "../../pages";
@@ -26,14 +26,14 @@ export default function Router() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/contact" component={Contact} />
-          <Route path="/admin" component={Admin} />
-          <Route path="/about" component={About} />
-          <Route path="/login" component={Login} />
           <ProtectedRoute
-            path="/upload"
-            component={Upload}
+            path="/admin"
+            component={Admin}
             isAllowed={isAuthenticated}
           />
+          <Route path="/about" component={About} />
+          <Route path="/login" component={Login} />
+          <Route path="/category/:title" component={Category} />
           <Route component={NotFound} />
         </Switch>
       </div>

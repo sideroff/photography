@@ -13,7 +13,6 @@ export default function CreateCategory() {
       <form onsubmit={createCategory}>
         <Input type="text" name="name" placeholder="Name" />
         <Input type="text" name="description" placeholder="Description" />
-        <Input type="file" name="primaryImage" placeholder="Primary Image" />
 
         <Input type="submit" value="Submit" />
       </form>
