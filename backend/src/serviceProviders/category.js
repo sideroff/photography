@@ -1,4 +1,5 @@
 const Category = require("../connectors/database/models/category");
+const Picture = require("../connectors/database/models/picture");
 const logger = require("../logger");
 const responses = require("../responses");
 const roles = require("../config").roles;
@@ -20,21 +21,43 @@ const getAll = (req) => {
   });
 };
 
-const getById = (req) => {
+const getByTitle = (req) => {
   return new Promise((resolve, reject) => {
-    const id = req.params && req.params.id;
-    if (!id) {
+    const title = req.params && req.params.title;
+    if (!title) {
       return reject(
         responses.getResponse(
           responses.badRequest,
-          "Please provide a vaild category id."
+          "Please provide a vaild category title."
         )
       );
     }
 
-    Category.findById(id)
+    Category.findOne({ title })
       .then((category) => {
-        resolve(responses.getResponse(responses.ok, category));
+        if (category) {
+          return Picture.find({ categoryId: category._id })
+            .then((pictures) => {
+              console.log("received pictures", JSON.stringify(pictures));
+              return resolve(
+                responses.getResponse(responses.ok, {
+                  ...category._doc,
+                  ...{ pictures },
+                })
+              );
+            })
+            .catch((error) => {
+              reject(
+                responses.getResponse(
+                  responses.internalServerError,
+                  "Encountered a problem while fetching category."
+                )
+              );
+            });
+        }
+        return reject(
+          responses.getResponse(responses.badRequest, "Category not found.")
+        );
       })
       .catch((error) => {
         reject(
@@ -143,8 +166,8 @@ module.exports = {
       requiredRole: roles.guest,
     },
     {
-      route: "/api/category/:id",
-      handler: getById,
+      route: "/api/category/:title",
+      handler: getByTitle,
       requiredRole: roles.guest,
     },
   ],

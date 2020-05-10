@@ -14,6 +14,7 @@ module.exports = {
     limits: {
       //mb * kb * b = total allowed bytes
       fileUploadSize: 3 * 1024 * 1024,
+      mimetypeWhitelist: ["image/jpeg", "image/png"],
     },
   },
   dababase: {

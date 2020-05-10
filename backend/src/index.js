@@ -24,6 +24,30 @@ function addMiddlewares(app) {
   logger.log("public folder: " + config.webServer.publicFolderPath);
 }
 
+function requestHandler(method, service, req, res) {
+  logger.log(`${method.toUpperCase()} ${service.route}`);
+  service
+    .handler(req, res)
+    .then((response) => {
+      res.status(response.status || 200);
+      res.send(response);
+    })
+    .catch((error) => {
+      logger.log("server error response received");
+      if (error && error.status && error.data) {
+        // check if error is already user friendly
+
+        res.status(error.status);
+        res.send(error);
+      } else {
+        // error is not user friendly => log and throw 500
+        logger.log(
+          "unfriendly error received by server: ",
+          JSON.stringify(error)
+        );
+      }
+    });
+}
 function addRouting(app) {
   logger.log("adding routing");
   const providers = Object.values(serviceProviders);
@@ -39,30 +63,20 @@ function addRouting(app) {
         logger.log(
           `\tattaching ${method.toUpperCase()} ${service.route} to router`
         );
-        app[method](service.route, (req, res) => {
-          logger.log(`${method.toUpperCase()} ${service.route}`);
-          service
-            .handler(req, res)
-            .then((response) => {
-              res.status(response.status || 200);
-              res.send(response);
-            })
-            .catch((error) => {
-              logger.log("server error response received");
-              if (error && error.status && error.data) {
-                // check if error is already user friendly
-
-                res.status(error.status);
-                res.send(error);
-              } else {
-                // error is not user friendly => log and throw 500
-                logger.log(
-                  "unfriendly error received by server: ",
-                  JSON.stringify(error)
-                );
-              }
-            });
-        });
+        if (service.middleware) {
+          logger.log(
+            "\tupload middleware: ",
+            method.toUpperCase(),
+            service.route
+          );
+          app[method](service.route, service.middleware, (req, res) =>
+            requestHandler(method, service, req, res)
+          );
+        } else {
+          app[method](service.route, (req, res) =>
+            requestHandler(method, service, req, res)
+          );
+        }
       });
     });
   });
