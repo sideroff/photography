@@ -27,7 +27,7 @@ const MENU_LINKS = [
 export default function Header() {
   const { state: authState } = useContext(AuthContext);
   let [isNavOpen, setIsNavOpen] = useState(false);
-
+  console.log(authState);
   const mapToNavLink = (entry) => {
     // if a role is required and current user does not cover it -> do not show link
     if (entry.requiredRole && authState.role < entry.requiredRole) {

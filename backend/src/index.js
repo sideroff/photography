@@ -2,6 +2,7 @@ const path = require("path");
 
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
 
 const config = require("./config");
@@ -15,6 +16,23 @@ function addMiddlewares(app) {
 
   // support parsing of application/json type post data
   app.use(bodyParser.json());
+
+  app.use(cookieParser());
+
+  app.use((req, res, next) => {
+    const token = req.cookies && req.cookies.token;
+    if (!token) return next();
+
+    cache
+      .getSession(token)
+      .then((session) => {
+        req.auth = session;
+        next();
+      })
+      .catch((error) => {
+        next();
+      });
+  });
 
   //support parsing of application/x-www-form-urlencoded post data
   app.use(bodyParser.urlencoded({ extended: true }));

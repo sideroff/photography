@@ -1,7 +1,5 @@
-import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import React from "react";
+import { Route, Redirect } from "react-router-dom";
 
 export default ({ isAllowed, ...props }) =>
-  isAllowed
-    ? <Route {...props} />
-    : <Redirect to="/authenticade" />
+  isAllowed ? <Route {...props} /> : <Redirect to="/login" />;

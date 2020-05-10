@@ -24,6 +24,11 @@ module.exports = {
       process.env.DB_PASS || credentials.db.password
     }@ds129179.mlab.com:29179/photography`,
   },
+  cache: {
+    host: "redis-15813.c3.eu-west-1-1.ec2.cloud.redislabs.com",
+    port: "15813",
+    password: process.env.CACHE_PASS || credentials.cache.password,
+  },
   roles: {
     admin: 3,
     guest: 0,

@@ -91,10 +91,8 @@ const register = (req) => {
 
 const login = (req, res) => {
   return new Promise((resolve, reject) => {
-    logger.log("login handler");
     const username = req.body && req.body.username;
     const password = req.body && req.body.password;
-    logger.log("login, password", username, password);
 
     if (
       !username ||
@@ -140,13 +138,22 @@ const login = (req, res) => {
           .digest("hex");
 
         // save user to cache and resolve
+        const session = {
+          username: user.username,
+          id: user._id,
+          role: user._doc.role,
+        };
+
         cache
-          .set(token, user)
+          .setSession(token, session)
           .then(() => {
+            res.cookie("token", token);
+            res.cookie("role", session.role);
             resolve(
               responses.getResponse(responses.ok, {
                 message: "Successfully logged in.",
                 token,
+                role: session.role,
               })
             );
           })
@@ -175,7 +182,7 @@ module.exports = {
     {
       route: "/api/auth/register",
       handler: register,
-      requiredRole: 3,
+      requiredRole: 0,
     },
     {
       route: "/api/auth/login",

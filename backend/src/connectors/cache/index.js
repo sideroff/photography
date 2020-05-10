@@ -1,31 +1,83 @@
+const redis = require("redis");
+
+const config = require("../../config");
 const logger = require("../../logger");
 
-const cache = {};
+class Cache {
+  initialize() {
+    return new Promise((resolve, reject) => {
+      this.client = redis.createClient(config.cache);
 
-function initialize() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      logger.log("cache connection has been made");
-      resolve(cache);
-    }, 500);
-  });
+      this.client.on("ready", () => {
+        logger.log("cache connection established successfully.");
+        resolve();
+      });
+
+      this.client.on("error", (error) => {
+        logger.log(
+          `connection to cache could not be established ${JSON.stringify(
+            error
+          )}`
+        );
+        reject(error);
+      });
+    });
+  }
+
+  setSession(token, data) {
+    return new Promise((resolve, reject) => {
+      if (typeof data !== "string") {
+        try {
+          data = JSON.stringify(data);
+        } catch (error) {
+          data = data.toString();
+        }
+      }
+
+      this.client.set(token, data, (error, data) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve();
+      });
+    });
+  }
+
+  getSession(token) {
+    return new Promise((resolve, reject) => {
+      this.client.get(token, (error, session) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(session);
+      });
+    });
+  }
+
+  close() {
+    return new Promise((resolve, reject) => {
+      logger.log(`connection to redis is getting closed voluntarily.`);
+
+      this.client.quit((error) => {
+        if (error) {
+          return reject(error);
+        }
+
+        logger.log(`connection to redis has been closed voluntarily.`);
+        resolve();
+      });
+    });
+  }
 }
 
-function set(key, data) {
-  return new Promise((resolve, reject) => {
-    cache[key] = data;
-    resolve(key);
-  });
+let instance;
+
+function getInstance() {
+  if (!instance) {
+    instance = new Cache();
+  }
+
+  return instance;
 }
 
-function get(key) {
-  return new Promise((resolve, reject) => {
-    resolve(cache[key]);
-  });
-}
-
-module.exports = {
-  initialize,
-  set,
-  get,
-};
+module.exports = getInstance();

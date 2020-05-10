@@ -64,7 +64,9 @@ export default function UploadPicture() {
             </option>
           ) : (
             categories.map((category) => (
-              <option value={category._id}>{category.title}</option>
+              <option key={category._id} value={category._id}>
+                {category.title}
+              </option>
             ))
           )}
         </select>

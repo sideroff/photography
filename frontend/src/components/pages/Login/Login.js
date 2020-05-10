@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 
 import { AuthContext } from "../../../store/contexts/auth";
 
@@ -8,6 +9,11 @@ import "./Login.scss";
 
 export default function Login() {
   const { state: authState, actions } = useContext(AuthContext);
+  const history = useHistory();
+
+  if (authState.isAuthenticated) {
+    history.push("/admin");
+  }
 
   const [formUsername, setFormUsername] = useState("");
   const [formPassword, setFormPassword] = useState("");
@@ -20,7 +26,6 @@ export default function Login() {
       password: formPassword,
     };
 
-    console.log("submit ", formValues);
     actions.login(formValues);
   };
 
