@@ -20,7 +20,7 @@ export default function Category(params) {
       .catch((error) => {
         toast(error && error.message);
       });
-  }, []);
+  }, [title]);
 
   if (!category) return <Loading />;
   const items = category.pictures.map((pic) => ({

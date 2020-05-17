@@ -85,7 +85,7 @@ export default function UploadPicture() {
           }}
         />
         <br />
-        <Input type="submit" value="Submit" />
+        <Input type="submit" value="Submit" disabled={isLoading} />
       </form>
     </div>
   );

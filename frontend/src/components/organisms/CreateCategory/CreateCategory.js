@@ -1,14 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 import { Input } from "../../atoms";
 
 export default function CreateCategory() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [pictureFile, setPictureFile] = useState();
+  const [primaryImage, setPrimaryImage] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const createCategory = (event) => {
-    //TODO: implement
+    event.preventDefault();
+    console.log("create category ", { title, description, primaryImage });
+    setIsLoading(true);
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("primaryImage", primaryImage);
+
+    fetch("/api/category", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        setIsLoading(false);
+        toast(response.data);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        toast(error && error.message);
+      });
   };
 
   return (
@@ -34,10 +57,10 @@ export default function CreateCategory() {
           name="image"
           placeholder="Image"
           onChange={(event) => {
-            setPictureFile(event.target.files[0]);
+            setPrimaryImage(event.target.files[0]);
           }}
         />
-        <Input type="submit" value="Submit" />
+        <Input type="submit" value="Submit" disabled={isLoading} />
       </form>
     </div>
   );
