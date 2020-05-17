@@ -93,10 +93,15 @@ function addRouting(app) {
         } else {
           app[method](service.route, (req, res) => {
             if (
-              (typeof service.requiredRole === "number" && !req.auth) ||
-              typeof req.auth.role !== "number" ||
-              req.auth.role < service.requiredRole
+              typeof service.requiredRole === "number" &&
+              service.requiredRole !== config.roles.guest &&
+              (!req.auth || req.auth.role < service.requiredRole)
             ) {
+              console.log(
+                "sending 401",
+                service.requiredRole,
+                JSON.stringify(req.auth)
+              );
               res.send(responses.getResponse(responses.unautharized));
               return;
             }
