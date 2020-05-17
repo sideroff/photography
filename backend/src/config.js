@@ -11,6 +11,8 @@ module.exports = {
     port: process.env.PORT || 3001,
     host: process.env.HOST,
     publicFolderPath: path.join(__dirname, "../public"),
+    //seconds minutes hours days = total number of seconds
+    sessionTTL: 60 * 60 * 24 * 7,
     limits: {
       //mb * kb * b = total allowed bytes
       fileUploadSize: 3 * 1024 * 1024,

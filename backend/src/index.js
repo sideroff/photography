@@ -3,7 +3,7 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const fileUpload = require("express-fileupload");
+const responses = require("./responses");
 
 const config = require("./config");
 const logger = require("./logger");
@@ -91,9 +91,17 @@ function addRouting(app) {
             requestHandler(method, service, req, res)
           );
         } else {
-          app[method](service.route, (req, res) =>
-            requestHandler(method, service, req, res)
-          );
+          app[method](service.route, (req, res) => {
+            if (
+              (typeof service.requiredRole === "number" && !req.auth) ||
+              typeof req.auth.role !== "number" ||
+              req.auth.role < service.requiredRole
+            ) {
+              res.send(responses.getResponse(responses.unautharized));
+              return;
+            }
+            requestHandler(method, service, req, res);
+          });
         }
       });
     });

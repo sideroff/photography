@@ -38,7 +38,6 @@ const getByTitle = (req) => {
         if (category) {
           return Picture.find({ categoryId: category._id })
             .then((pictures) => {
-              console.log("received pictures", JSON.stringify(pictures));
               return resolve(
                 responses.getResponse(responses.ok, {
                   ...category._doc,

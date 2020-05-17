@@ -1,5 +1,6 @@
 const crypto = require("crypto");
 
+const config = require("../config");
 const cache = require("../connectors/cache");
 const User = require("../connectors/database/models/user");
 const logger = require("../logger");
@@ -54,6 +55,7 @@ const register = (req) => {
           username,
           password: hashedPassword,
           salt,
+          role: config.roles.admin,
         });
 
         newUser
@@ -151,7 +153,7 @@ const login = (req, res) => {
             res.cookie("role", session.role);
             resolve(
               responses.getResponse(responses.ok, {
-                message: "Successfully logged in.",
+                data: "Successfully logged in.",
                 token,
                 role: session.role,
               })

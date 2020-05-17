@@ -17,7 +17,6 @@ const create = (req) => {
     const name =
       req.files && req.files.pictureFile && req.files.pictureFile.name;
 
-    console.log(name);
     if (!name || typeof name != "string" || name.length <= 4) {
       return reject(
         responses.getResponse(

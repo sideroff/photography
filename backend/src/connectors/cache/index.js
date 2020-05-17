@@ -34,12 +34,18 @@ class Cache {
         }
       }
 
-      this.client.set(token, data, (error, data) => {
-        if (error) {
-          return reject(error);
+      this.client.set(
+        token,
+        data,
+        "EX",
+        config.webServer.sessionTTL,
+        (error, data) => {
+          if (error) {
+            return reject(error);
+          }
+          resolve();
         }
-        resolve();
-      });
+      );
     });
   }
 
