@@ -17,7 +17,6 @@ import { AuthContext } from "../../../store/contexts/auth";
 export default function Router() {
   const { state: authState } = useContext(AuthContext);
 
-  console.log("authState", authState);
   const isAuthenticated = authState.isAuthenticated; //store && store.auth && store.auth.isAuthenticated;
   return (
     <BrowserRouter basename="/">

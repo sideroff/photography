@@ -3,6 +3,7 @@ import ImageGallery from "react-image-gallery";
 
 import "./Category.scss";
 import { Loading } from "../../atoms";
+import { toast } from "react-toastify";
 
 export default function Category(params) {
   const title =
@@ -14,11 +15,10 @@ export default function Category(params) {
     fetch(`/api/category/${title}`)
       .then((response) => response.json())
       .then((response) => {
-        console.log("response ", response);
         setCategory(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        toast(error && error.message);
       });
   }, []);
 
@@ -27,8 +27,6 @@ export default function Category(params) {
     original: `/${pic.name}`,
     thumbnail: `/${pic.name}`,
   }));
-
-  console.log("items", items);
 
   return (
     <div className="category">

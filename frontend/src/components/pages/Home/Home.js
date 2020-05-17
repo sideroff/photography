@@ -3,13 +3,13 @@ import { NavLink } from "react-router-dom";
 import { Loading } from "../../atoms";
 
 import "./Home.scss";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    console.log("here boi");
     setIsLoading(true);
     fetch("/api/category", {
       method: "GET",
@@ -21,7 +21,7 @@ export default function Home() {
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
+        toast(error && error.message);
       });
   }, []);
 

@@ -20,9 +20,7 @@ export const createState = (defaultState, actions, reducer) => {
     Object.keys(actions).forEach((name) => {
       dispatchableActions[name] = (...args) => {
         const action = actions[name];
-        console.log("utils calling action with name ", name);
         const result = action(...args);
-        console.log("utils action result", result, typeof result);
 
         // implementing thunk
         if (typeof result === "function") {

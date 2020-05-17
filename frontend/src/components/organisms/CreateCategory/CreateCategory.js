@@ -8,7 +8,7 @@ export default function CreateCategory() {
   const [pictureFile, setPictureFile] = useState();
 
   const createCategory = (event) => {
-    console.log(event);
+    //TODO: implement
   };
 
   return (

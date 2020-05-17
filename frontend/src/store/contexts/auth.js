@@ -1,4 +1,5 @@
 import { createState } from "../utils";
+import { toast } from "react-toastify";
 
 const cookieParser = (cookie) => {
   const obj = {};
@@ -20,6 +21,7 @@ export const roles = {
 };
 
 const cookies = cookieParser(document.cookie);
+console.log("got cookies", cookies);
 
 const DEFAULT_STATE = {
   isAuthenticated: !!cookies.token,
@@ -46,9 +48,7 @@ const updateIsAuthenticated = (payload) => ({
 // 'Content-Type': 'application/x-www-form-urlencoded',
 const actions = {
   login: (body) => {
-    console.log("login action");
     return (dispatch) => {
-      console.log("login thunk action");
       fetch("/api/auth/login", {
         method: "POST",
         headers: {
@@ -58,8 +58,15 @@ const actions = {
       })
         .then((response) => response.json())
         .then((response) => {
-          console.log("received login response", response.data);
-          dispatch(updateIsAuthenticated(response.data));
+          if (response && response.status === 200) {
+            toast(response && response.data);
+            dispatch(updateIsAuthenticated(response.data));
+          } else {
+            toast(response && response.data);
+          }
+        })
+        .catch((error) => {
+          toast("A network error occured");
         });
     };
   },

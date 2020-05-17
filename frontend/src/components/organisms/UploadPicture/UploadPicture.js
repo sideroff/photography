@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { Input } from "../../atoms";
+import { toast } from "react-toastify";
 
 //TODO: implement uploading a picture
 export default function UploadPicture() {
@@ -16,12 +17,14 @@ export default function UploadPicture() {
       .then((response) => response.json())
       .then((response) => {
         setCategories(response.data);
+        if (response && response.data && response.data.length) {
+          setCategory(response.data[0]._id);
+        }
         setIsLoadingCategories(false);
       })
-
       .catch((error) => {
-        console.log(error);
         setIsLoadingCategories(false);
+        toast(error && error.message);
       });
   }, []);
 
@@ -40,11 +43,11 @@ export default function UploadPicture() {
       .then((response) => response.json())
       .then((response) => {
         setIsLoading(false);
-        console.log("response from fileupload", response);
+        toast(response.data);
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log("error from fileupload ", error);
+        toast(error && error.message);
       });
   };
 
@@ -56,7 +59,9 @@ export default function UploadPicture() {
         <select
           id="categories"
           value={category}
-          onChange={(event) => setCategory(event.target.value)}
+          onChange={(event) => {
+            setCategory(event.target.value);
+          }}
         >
           {isLoadingCategories ? (
             <option disabled value="">
