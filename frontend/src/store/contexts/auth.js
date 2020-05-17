@@ -6,7 +6,7 @@ const cookieParser = (cookie) => {
   const cookies = cookie.split(";");
   cookies.forEach((c) => {
     const parts = c.split("=");
-    obj[parts[0]] = parts[1];
+    obj[parts[0].trim()] = parts[1].trim();
   });
 
   return obj;
@@ -21,7 +21,6 @@ export const roles = {
 };
 
 const cookies = cookieParser(document.cookie);
-console.log("got cookies", cookies);
 
 const DEFAULT_STATE = {
   isAuthenticated: !!cookies.token,
